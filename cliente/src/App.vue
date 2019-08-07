@@ -2,7 +2,7 @@
   <v-app>
     <!-- <v-navigation-drawer app></v-navigation-drawer> -->
     <v-app-bar app dense dark>
-      <v-btn icon @click="$router.push('/')" v-if="userIsLoggedIn">
+      <v-btn icon @click="$router.push('/biblioteca')" v-if="userIsLoggedIn">
         <v-icon large>mdi-home</v-icon>
       </v-btn>
       <v-spacer></v-spacer>

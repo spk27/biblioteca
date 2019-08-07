@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
     state: {
       isLoggedIn: false,
       user: null,
-      token: null,
+      token: localStorage.getItem('access_token'),
       loading: false,
       categories: [],
       autors: [],
@@ -25,7 +25,7 @@ export const store = new Vuex.Store({
         return state.user
       },
       token (state) {
-        return localStorage.getItem('access_token');
+        return localStorage.getItem('access_token')
       },    
       loading (state) {
         return state.loading
@@ -152,6 +152,99 @@ export const store = new Vuex.Store({
         axios.get(url + 'book', { headers: { "Authorization": 'Bearer ' + token }})
         .then((res) => {
           commit('setBooks', res.data)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      addCategory({commit, dispatch, state}, category) {
+        axios.post(url + 'category', category, 
+        { headers: { 'Content-Type': 'application/json', "Authorization": 'Bearer ' + state.token } })
+        .then((res) => {
+          dispatch('getCategories', state.token)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      editCategory({commit, dispatch, state}, category) {
+        axios.put(url + 'category', category, 
+        { headers: { 'Content-Type': 'application/json', "Authorization": 'Bearer ' + state.token } })
+        .then((res) => {
+          dispatch('getCategories', state.token)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      delCategory({commit, dispatch, state}, category) {
+        axios.delete(url + 'category/' + category.categoryId, 
+        { headers: 
+          { 'Content-Type': 'application/json', 
+          "Authorization": 'Bearer ' + state.token }
+        })
+        .then((res) => {
+          dispatch('getCategories', state.token)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      addAutor({commit, dispatch, state}, autor) {
+        axios.post(url + 'autor', autor, 
+        { headers: { 'Content-Type': 'application/json', "Authorization": 'Bearer ' + state.token } })
+        .then((res) => {
+          dispatch('getAutors', state.token)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      editAutor({commit, dispatch, state}, Autor) {
+        axios.put(url + 'autor', Autor, 
+        { headers: { 'Content-Type': 'application/json', "Authorization": 'Bearer ' + state.token } })
+        .then((res) => {
+          dispatch('getAutors', state.token)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      delAutor({commit, dispatch, state}, Autor) {
+        axios.delete(url + 'autor/' + Autor.autorId, 
+        { headers: { 'Content-Type': 'application/json', "Authorization": 'Bearer ' + state.token } })
+        .then((res) => {
+          dispatch('getAutors', state.token)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      addBook({commit, dispatch, state}, model) {
+        axios.post(url + 'book', model,
+        { headers: { 'Content-Type': 'application/json', "Authorization": 'Bearer ' + state.token } })
+        .then((res) => {
+          dispatch('getBooks', state.token)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      editBook({commit, dispatch, state}, model) {
+        axios.put(url + 'book', model, 
+        { headers: { 'Content-Type': 'application/json', "Authorization": 'Bearer ' + state.token } })
+        .then((res) => {
+          dispatch('getBooks', state.token)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      delBook({commit, dispatch, state}, Book) {
+        axios.delete(url + 'book/' + Book.bookId, 
+        { headers: { 'Content-Type': 'application/json', "Authorization": 'Bearer ' + state.token } })
+        .then((res) => {
+          dispatch('getBooks', state.token)
         })
         .catch((error) => {
           console.log(error);

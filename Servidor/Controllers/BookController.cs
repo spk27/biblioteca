@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Biblioteca.Models;
+using Biblioteca.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace Biblioteca.Controllers
 {
@@ -15,9 +17,12 @@ namespace Biblioteca.Controllers
     public class BookController : ControllerBase
     {
         private readonly LibraryContext _context;
-        public BookController(LibraryContext context)
+        private readonly ILogger _logger;
+
+        public BookController(LibraryContext context, ILogger<BookController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -29,37 +34,50 @@ namespace Biblioteca.Controllers
                     .ToList());
 
         [HttpPost]
-        public async Task<IActionResult> AddBook([FromBody] Book book) {
+        public async Task<IActionResult> AddBook([FromBody] ViewBook model) {
             if (!ModelState.IsValid) {
                 return new BadRequestObjectResult(ModelState.FirstOrDefault());
             }
-            if (book.Autor != null && 0 < book.Autor.AutorId) {
-                book.Autor = _context.Autor.Where(a => a.AutorId == book.Autor.AutorId).SingleOrDefault();
+            if (model.Book.Autor != null && 0 < model.Book.Autor.AutorId) {
+                model.Book.Autor = _context.Autor.Where(a => a.AutorId == model.Book.Autor.AutorId).SingleOrDefault();
             }
-            // var categorias = book.BookCategory;
-            // book.BookCategory = new List<Category>();
-            // foreach(var cat in book.BookCategory) {
-            //     book.BookCategory.Add(new BookCategory { CategoryId = cat.CategoryId });
-            // }
-            _context.Book.Add(book);
+            foreach(var cat in model.Categories) {
+                model.Book.BookCategory.Add(new BookCategory { CategoryId = cat.CategoryId });
+            }
+            _context.Book.Add(model.Book);
             
             await _context.SaveChangesAsync();
+            _logger.LogInformation(2000, "Libro creado");
             return new OkResult();  
         } 
 
         [HttpPut]
-        public async Task<IActionResult> UpdateBook([FromBody] Book book) {
-            _context.Book.Update(book);
+        public async Task<IActionResult> UpdateBook([FromBody] ViewBook model) {
+            _context.Book.Update(model.Book);
+            var bookCategory = _context.BookCategory.Where(b => b.BookId == model.Book.BookId).ToList();
+            foreach(var cat in model.Categories) {
+                if(!bookCategory.Where(b => b.CategoryId == cat.CategoryId).Any()) {
+                    _context.BookCategory.Add(new BookCategory{ BookId = model.Book.BookId, CategoryId = cat.CategoryId });
+                }
+            }
+            foreach(var cat in bookCategory) {
+                if(!model.Categories.Where(b => b.CategoryId == cat.CategoryId).Any()) {
+                    _context.BookCategory.Remove(cat);
+                }
+            }
             // foreach(var cat in book.BookCategory) 
             //     _context.Entry(cat).State = EntityState.Modified;
             await _context.SaveChangesAsync();
+            _logger.LogInformation(2000, "Libro actualizado");
             return new OkResult();
         } 
         
-        [HttpDelete]
-        public async Task<IActionResult> DeleteBook([FromBody] Book book) {
+        [HttpDelete("{ID}")]
+        public async Task<IActionResult> DeleteBook(int ID) {
+            var book = _context.Book.Where(c => c.BookId == ID).FirstOrDefault();
             _context.Book.Remove(book);
             await _context.SaveChangesAsync();
+            _logger.LogInformation(2000, "Libro eliminado");
             return new OkResult();
         } 
 

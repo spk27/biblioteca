@@ -5,12 +5,12 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Biblioteca.Helper;
 using Biblioteca.Models;
 using Biblioteca.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Biblioteca.Helper;
 
 namespace Biblioteca.Controllers
 {
@@ -38,7 +38,7 @@ namespace Biblioteca.Controllers
             if (!result.Succeeded) return new BadRequestObjectResult(result);
 
             await _appDbContext.SaveChangesAsync();
-        
+            
             var util = new Utils();
             return Ok(util.GenerateToken(model));
         }

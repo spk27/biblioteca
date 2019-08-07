@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Biblioteca.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace Biblioteca.Controllers
 {
@@ -14,9 +15,11 @@ namespace Biblioteca.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly LibraryContext _context;
-        public CategoryController(LibraryContext context)
+        private readonly ILogger _logger;
+        public CategoryController(LibraryContext context, ILogger<CategoryController> logger)
         {
             _context = context;
+            _logger = logger;
         }
         
         [HttpGet]
@@ -29,6 +32,7 @@ namespace Biblioteca.Controllers
             }
             _context.Category.Add(category);
             await _context.SaveChangesAsync();
+            _logger.LogInformation(2000, "Categoria creada");
             return new OkResult();
         }
 
@@ -36,12 +40,15 @@ namespace Biblioteca.Controllers
         public async Task<IActionResult> UpdateCategory([FromBody] Category category) {
             _context.Category.Update(category);
             await _context.SaveChangesAsync();
+            _logger.LogInformation(2000, "Categoria actualizada");
             return new OkResult();
         }
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCategory([FromBody] Category category) {
-            _context.Category.Remove(category);
+        [HttpDelete("{ID}")]
+        public async Task<IActionResult> DeleteCategory(int ID) {
+            var cat = _context.Category.Where(c => c.CategoryId == ID).FirstOrDefault();
+            _context.Category.Remove(cat);
             await _context.SaveChangesAsync();
+            _logger.LogInformation(2000, "Categoria borrada");
             return new OkResult();
         }
     }
