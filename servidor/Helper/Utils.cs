@@ -21,7 +21,7 @@ namespace Biblioteca.Helper
         var token = new JwtSecurityToken(
             issuer: "biblioteca-bluesoft",
             audience: "http://localhost:5000/",
-            expires: DateTime.UtcNow.AddDays(1),
+            expires: DateTime.UtcNow.AddDays(3),
             claims: claims,
             signingCredentials: new SigningCredentials(signInKey, SecurityAlgorithms.HmacSha256)
         );

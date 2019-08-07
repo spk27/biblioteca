@@ -104,7 +104,6 @@ namespace Biblioteca
             }
             
             app.UseCors("TodasConexionesEntrantes");
-            app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();
         }
