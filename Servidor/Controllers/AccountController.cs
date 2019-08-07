@@ -10,6 +10,7 @@ using Biblioteca.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Biblioteca.Helper;
 
 namespace Biblioteca.Controllers
 {
@@ -31,14 +32,15 @@ namespace Biblioteca.Controllers
 
             if (await _userManager.FindByEmailAsync(model.UserName) != null) return new BadRequestObjectResult("Este Email ya esta ocupado");
 
-                var userIdentity = new AppUser { UserName = model.UserName, Email = model.UserName };
-                var result = await _userManager.CreateAsync(userIdentity, model.Password);
+            var userIdentity = new AppUser { UserName = model.UserName, Email = model.UserName };
+            var result = await _userManager.CreateAsync(userIdentity, model.Password);
 
-                if (!result.Succeeded) return new BadRequestObjectResult(result);
+            if (!result.Succeeded) return new BadRequestObjectResult(result);
 
-                await _appDbContext.SaveChangesAsync();
-            
-            return new OkObjectResult("Usuario Creado");
+            await _appDbContext.SaveChangesAsync();
+        
+            var util = new Utils();
+            return Ok(util.GenerateToken(model));
         }
 
     }

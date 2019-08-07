@@ -10,6 +10,7 @@ using Biblioteca.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Biblioteca.Helper;
 
 namespace Biblioteca.Controllers
 {
@@ -43,26 +44,8 @@ namespace Biblioteca.Controllers
             }
 
             if (await _userManager.CheckPasswordAsync(userToVerify, credentials.Password)) {
-                List<Claim> claims = new List<Claim>();
-                claims.Add(new Claim(JwtRegisteredClaimNames.Sub, credentials.UserName));
-                claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
-
-                var signInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("iNivDmHLpUA223sqsfhqGbMRdRj1PVkH"));
-
-                var token = new JwtSecurityToken(
-                    issuer: "biblioteca-bluesoft",
-                    audience: "http://localhost:5000/",
-                    expires: DateTime.UtcNow.AddDays(1),
-                    claims: claims,
-                    signingCredentials: new SigningCredentials(signInKey, SecurityAlgorithms.HmacSha256)
-                );
-
-                return Ok(
-                    new {
-                        token = new JwtSecurityTokenHandler().WriteToken(token),
-                        expiration = token.ValidTo
-                    }
-                );
+                var util = new Utils();
+                return Ok(util.GenerateToken(credentials));
             
             } else return Unauthorized();
         }

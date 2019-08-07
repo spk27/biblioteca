@@ -33,6 +33,12 @@ namespace Biblioteca
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(c => c.AddPolicy("TodasConexionesEntrantes", cors => {
+                cors.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -83,10 +89,6 @@ namespace Biblioteca
                 configureOptions.SaveToken = true;
             });
             
-            /*************** MODELS ***************/
-            services.AddScoped<Category>();
-            services.AddScoped<Autor>();
-            services.AddScoped<Book>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -100,7 +102,8 @@ namespace Biblioteca
             {
                 app.UseHsts();
             }
-
+            
+            app.UseCors("TodasConexionesEntrantes");
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();
