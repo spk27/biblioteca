@@ -1,11 +1,11 @@
-# cliente
+## CLIENTE
 
-## Project setup
+#### Ir al subdirectorio biblioteca/cliente y ejecutar en consola:
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+#### Compilar y ejecuta el cliente bajo localhost:8081
 ```
 npm run serve
 ```

@@ -19,7 +19,7 @@ const dict = {
     contra: {
       required: 'La contraseña es Obligatoria',
       is_not: 'La nueva contraseña debe ser distinta a la anterior',
-      min: 'La contraseña debe poseer minimo 6 caracteres',
+      min: 'La contraseña debe poseer minimo 6 caracteres con al menos una letra y un digito',
       max: 'La contraseña debe poseer maximo 100 caracteres'
     },
     oldContra: {

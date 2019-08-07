@@ -1,0 +1,499 @@
+{
+	"info": {
+		"_postman_id": "07abc352-1831-4152-bc60-371887dcc0e7",
+		"name": "BlueSoft-Biblioteca",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Biblioteca",
+			"item": [
+				{
+					"name": "Categoria",
+					"item": [
+						{
+							"name": "GetCategories",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}category",
+									"host": [
+										"{{url}}category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddCategory",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"nombre\": \"Construccion\",\n\t\"descripcion\": \"Varios\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}category",
+									"host": [
+										"{{url}}category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateCategory",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"categoryId\": 1,\r\n    \"nombre\": \"Ciencias de la Salud UC\",\r\n    \"descripcion\": \"Ciencias\"\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}category",
+									"host": [
+										"{{url}}category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteCategory",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}category/6?",
+									"host": [
+										"{{url}}category"
+									],
+									"path": [
+										"6"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Autor",
+					"item": [
+						{
+							"name": "GetAutors",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}autor",
+									"host": [
+										"{{url}}autor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddAutor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"nombre\": \"Jose\",\n\t\"apellidos\": \"Montana\",\n\t\"fechaNacimiento\": \"1991-07-27\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}autor",
+									"host": [
+										"{{url}}autor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateAutor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"autorId\": 1003,\r\n    \"nombre\": \"Juan\",\r\n    \"apellidos\": \"Montana\",\r\n    \"fechaNacimiento\": \"1991-07-28T00:00:00\"\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}autor",
+									"host": [
+										"{{url}}autor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteAutor",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}autor/1003?",
+									"host": [
+										"{{url}}autor"
+									],
+									"path": [
+										"1003"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Libro",
+					"item": [
+						{
+							"name": "GetBook",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}book",
+									"host": [
+										"{{url}}book"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddBook",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"book\" : {\n\t\t\"nombre\": \"Mi tercer libro\",\n\t\t\"isbn\": \"122-21-34323\",\n\t\t\"autor\": \n\t\t{\n\t\t    \"autorId\": 2\n\t\t}\n\t},\n\t\"categories\": [\n\t\t{\n\t\t\t\"categoryId\": 5\n\t\t}\n\t]\n}"
+								},
+								"url": {
+									"raw": "{{url}}book",
+									"host": [
+										"{{url}}book"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateBook",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\t\"book\": {\r\n\t    \"bookId\": 1002,\r\n\t    \"nombre\": \"Mi primer libro\",\r\n\t    \"isbn\": \"122-21-34323\",\r\n\t    \"autorId\": 2,\r\n\t    \"autor\": {\r\n\t        \"autorId\": 2,\r\n\t        \"nombre\": \"Daniel\",\r\n\t        \"apellidos\": \"Aguilar Lopez\",\r\n\t        \"fechaNacimiento\": \"1990-07-27T00:00:00\",\r\n\t        \"book\": []\r\n\t    }\r\n\t},\r\n\t\"categories\": [\r\n\t\t{\r\n\t\t\t\"categoryId\": 5\r\n\t\t}\t\r\n\t]\r\n}"
+								},
+								"url": {
+									"raw": "{{url}}book",
+									"host": [
+										"{{url}}book"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteBook",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}book/1005?",
+									"host": [
+										"{{url}}book"
+									],
+									"path": [
+										"1005"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Login&Registro",
+					"item": [
+						{
+							"name": "Registro",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"UserName\" : \"bluesoft@gmail.com\",\n\t\"Password\" : \"123456a.A\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}account/Registrar",
+									"host": [
+										"{{url}}account"
+									],
+									"path": [
+										"Registrar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"username\" : \"bluesoft@gmail.com\",\n\t\"password\": \"123456a.A\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}auth/login",
+									"host": [
+										"{{url}}auth"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}
